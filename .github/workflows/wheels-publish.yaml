@@ -59,6 +59,8 @@ jobs:
       uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
       continue-on-error: true
       if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+      with:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: ${{ vars.AWS_ROLE_ARN }}
@@ -102,3 +104,7 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.RAPIDSAI_PYPI_TOKEN }}
+    - name: Telemetry upload attributes
+      uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+      continue-on-error: true
+      if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

@@ -62,6 +62,8 @@ jobs:
         uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -98,3 +100,7 @@ jobs:
           name: result
           path: ${{ inputs.file_to_upload }}
           if-no-files-found: ignore
+      - name: Telemetry upload attributes
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        continue-on-error: true
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

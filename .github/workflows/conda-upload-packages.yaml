@@ -50,6 +50,8 @@ jobs:
         uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
@@ -80,3 +82,7 @@ jobs:
         env:
           SKIP_UPLOAD_PKGS: ${{ inputs.skip_upload_pkgs }}
           RAPIDS_CONDA_UPLOAD_LABEL: ${{ inputs.upload_to_label }}
+      - name: Telemetry upload attributes
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        continue-on-error: true
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
