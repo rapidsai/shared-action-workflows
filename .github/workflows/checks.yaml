@@ -45,7 +45,7 @@ jobs:
         RAPIDS_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Telemetry setup
-        uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
         with:
@@ -66,7 +66,7 @@ jobs:
         env:
           IGNORED_JOBS: ${{ inputs.ignored_pr_jobs }}
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
 
@@ -77,7 +77,7 @@ jobs:
       image: rapidsai/ci-conda:latest
     steps:
       - name: Telemetry setup
-        uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
@@ -98,6 +98,6 @@ jobs:
         env:
           RAPIDS_BASE_BRANCH: ${{ fromJSON(steps.get-pr-info.outputs.pr-info).base.ref }}
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

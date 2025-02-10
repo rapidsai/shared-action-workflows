@@ -48,7 +48,7 @@ jobs:
       transformed_output: ${{ steps.transform-changed-files.outputs.transformed-output }}
     steps:
       - name: Telemetry setup
-        uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
         with:
@@ -89,6 +89,6 @@ jobs:
           done
           (echo -n "transformed-output="; jq -c -n "\$ARGS.named | to_entries | map({"key": .key, "value": .value[]}) | from_entries | $TRANSFORM_EXPR" "${file_args[@]}") | tee --append "$GITHUB_OUTPUT"
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

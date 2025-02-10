@@ -87,7 +87,7 @@ jobs:
         RAPIDS_BUILD_TYPE: ${{ inputs.build_type }}
     steps:
       - name: Telemetry setup
-        uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
         with:
@@ -123,6 +123,6 @@ jobs:
         if: "!cancelled()"
         run: rapids-upload-artifacts-dir cuda${RAPIDS_CUDA_VERSION%%.*}_$(arch)
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

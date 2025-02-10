@@ -59,7 +59,7 @@ jobs:
         NVIDIA_VISIBLE_DEVICES: ${{ env.NVIDIA_VISIBLE_DEVICES }}
     steps:
       - name: Telemetry setup
-        uses: rapidsai/shared-actions/telemetry-dispatch-setup@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
         with:
@@ -101,6 +101,6 @@ jobs:
           path: ${{ inputs.file_to_upload }}
           if-no-files-found: ignore
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
