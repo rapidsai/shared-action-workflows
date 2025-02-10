@@ -55,12 +55,6 @@ jobs:
       env:
         RAPIDS_BUILD_TYPE: ${{ inputs.build_type }}
     steps:
-    - name: Telemetry setup
-      uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
-      continue-on-error: true
-      if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
-      with:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: ${{ vars.AWS_ROLE_ARN }}
@@ -74,6 +68,13 @@ jobs:
         ref: ${{ inputs.sha }}
         fetch-depth: 0 # unshallow fetch for setuptools-scm
         persist-credentials: false
+
+    - name: Telemetry setup
+      uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
+      continue-on-error: true
+      if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+      with:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Standardize repository information
       uses: rapidsai/shared-actions/rapids-github-info@main

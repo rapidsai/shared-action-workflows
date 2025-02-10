@@ -116,13 +116,6 @@ jobs:
         RAPIDS_BUILD_TYPE: ${{ inputs.build_type }}
 
     steps:
-      - name: Telemetry setup
-        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
-        continue-on-error: true
-        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
-        with:
-          extra_attributes: "rapids.operation=build,rapids.package_type=wheel,rapids.cuda=${{ matrix.CUDA_VER }},rapids.py=${{ matrix.PY_VER }},rapids.arch=${{ matrix.ARCH }},rapids.linux=${{ matrix.LINUX_VER }}"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
@@ -136,6 +129,14 @@ jobs:
           ref: ${{ inputs.sha }}
           fetch-depth: 0 # unshallow fetch for setuptools-scm
           persist-credentials: false
+
+      - name: Telemetry setup
+        uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
+        continue-on-error: true
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+        with:
+          extra_attributes: "rapids.operation=build,rapids.package_type=wheel,rapids.cuda=${{ matrix.CUDA_VER }},rapids.py=${{ matrix.PY_VER }},rapids.arch=${{ matrix.ARCH }},rapids.linux=${{ matrix.LINUX_VER }}"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Standardize repository information
         uses: rapidsai/shared-actions/rapids-github-info@main
