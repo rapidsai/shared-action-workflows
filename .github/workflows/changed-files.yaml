@@ -89,6 +89,6 @@ jobs:
           done
           (echo -n "transformed-output="; jq -c -n "\$ARGS.named | to_entries | map({"key": .key, "value": .value[]}) | from_entries | $TRANSFORM_EXPR" "${file_args[@]}") | tee --append "$GITHUB_OUTPUT"
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

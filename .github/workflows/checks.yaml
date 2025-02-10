@@ -66,7 +66,7 @@ jobs:
         env:
           IGNORED_JOBS: ${{ inputs.ignored_pr_jobs }}
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
 
@@ -98,6 +98,6 @@ jobs:
         env:
           RAPIDS_BASE_BRANCH: ${{ fromJSON(steps.get-pr-info.outputs.pr-info).base.ref }}
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

@@ -101,6 +101,6 @@ jobs:
           path: ${{ inputs.file_to_upload }}
           if-no-files-found: ignore
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

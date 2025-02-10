@@ -128,6 +128,6 @@ jobs:
         if: "!cancelled()"
         run: rapids-upload-artifacts-dir cuda${RAPIDS_CUDA_VERSION%%.*}_$(arch)_py${RAPIDS_PY_VERSION//.}
       - name: Telemetry upload attributes
-        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-attributes@main
+        uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@main
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
