@@ -76,7 +76,6 @@ jobs:
         if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
         with:
             extra_attributes: "rapids.operation=devcontainer,rapids.package_type=${{ matrix.pkgr }},rapids.cuda=${{ matrix.cuda }},rapids.arch=${{ matrix.arch }}"
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if repo has devcontainer
         run: |

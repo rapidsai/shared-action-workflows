@@ -150,7 +150,6 @@ jobs:
       if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
       with:
         extra_attributes: "rapids.operation=test-wheel,rapids.package_type=wheel,rapids.cuda=${{ matrix.CUDA_VER }},rapids.py=${{ matrix.PY_VER }},rapids.arch=${{ matrix.ARCH }},rapids.linux=${{ matrix.LINUX_VER }},rapids.gpu=${{ matrix.GPU }},rapids.driver=${{ matrix.DRIVER }},rapids.deps=${{ matrix.DEPENDENCIES }}"
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Standardize repository information
       uses: rapidsai/shared-actions/rapids-github-info@main

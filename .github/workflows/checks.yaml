@@ -50,8 +50,6 @@ jobs:
         uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Get PR Info
         id: get-pr-info
         uses: nv-gha-runners/get-pr-info@main
@@ -82,8 +80,6 @@ jobs:
           fetch-depth: 0
       - name: Telemetry setup
         uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
         if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
       - name: Get PR Info

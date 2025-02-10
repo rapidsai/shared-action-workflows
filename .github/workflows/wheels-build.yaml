@@ -165,7 +165,6 @@ jobs:
         if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
         with:
           extra_attributes: "rapids.operation=build,rapids.package_type=wheel,rapids.cuda=${{ matrix.CUDA_VER }},rapids.py=${{ matrix.PY_VER }},rapids.arch=${{ matrix.ARCH }},rapids.linux=${{ matrix.LINUX_VER }}"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and repair the wheel
         run: |
