@@ -162,7 +162,7 @@ jobs:
       - name: Telemetry setup
         uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
-        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
         with:
           extra_attributes: "rapids.operation=build,rapids.package_type=wheel,rapids.cuda=${{ matrix.CUDA_VER }},rapids.py=${{ matrix.PY_VER }},rapids.arch=${{ matrix.ARCH }},rapids.linux=${{ matrix.LINUX_VER }}"
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -178,6 +178,6 @@ jobs:
         if: "!cancelled()"
         run: rapids-upload-artifacts-dir cuda${RAPIDS_CUDA_VERSION%%.*}_$(arch)_py${RAPIDS_PY_VERSION//.}
       - name: Telemetry upload attributes
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
         uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
-        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}

@@ -73,7 +73,7 @@ jobs:
       - name: Telemetry setup
         uses: rapidsai/shared-actions/telemetry-dispatch-setup@better-download-error-handling
         continue-on-error: true
-        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
         with:
             extra_attributes: "rapids.operation=devcontainer,rapids.package_type=${{ matrix.pkgr }},rapids.cuda=${{ matrix.cuda }},rapids.arch=${{ matrix.arch }}"
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -149,4 +149,4 @@ jobs:
       - name: Telemetry upload attributes
         uses: rapidsai/shared-actions/telemetry-dispatch-stash-job-artifacts@better-download-error-handling
         continue-on-error: true
-        if: ${{ vars.TELEMETRY_ENABLED == 'true' }}
+        if: ${{ vars.TELEMETRY_ENABLED == 'true' && github.run_attempt == '1' }}
